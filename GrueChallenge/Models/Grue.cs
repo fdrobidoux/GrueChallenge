@@ -6,7 +6,7 @@ namespace GrueChallenge.Models
 {
     public class Grue
     {
-        public int position { get; private set; }
-        public bool IsGrabbing { get; private set; }
+        public int Position { get; internal set; }
+        public bool IsGrabbing { get; internal set; }
     }
 }
