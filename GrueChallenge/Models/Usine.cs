@@ -15,8 +15,10 @@ namespace GrueChallenge.Models
             Stacks = stacks;
         }
 
-        public void ExecuterAction(string action)
+        public bool ExecuterAction(string action)
         {
+            bool isDone = false;
+
             switch (action)
             {
                 case "PLACE":
@@ -34,12 +36,15 @@ namespace GrueChallenge.Models
                 case default(string):
                     Console.WriteLine("GG WP");
                     Console.ReadKey();
-                    System.Threading.Thread.CurrentThread.Abort();
+                    isDone = true;
                     break;
                 default:
                     Console.WriteLine("ERROR: ACTION NOT FOUND: {0}", action);
+                    isDone = true;
                     break;
             }
+
+            return isDone;
         }
 
         private void FaireDeposer()

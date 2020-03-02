@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using GrueChallenge.Models;
 
 namespace GrueChallenge
@@ -8,13 +9,17 @@ namespace GrueChallenge
         static void Main(string[] args)
         {
             Grue grue = new Grue();
-            Usine usine = new Usine(grue, new[] { 2, 1, 2, 2 });
+            Usine usine = new Usine(grue, new[] { 4, 1, 5, 0, 2, 6 });
+
+            bool done = false;
 
             do {
                 Console.Clear();
-                usine.ExecuterAction(
+                done = usine.ExecuterAction(
                     Solve(grue.Position, usine.Stacks, grue.IsGrabbing)
                 );
+                if (done) 
+                    break;
                 Vue.Draw(grue, usine);
             }
             while (Console.ReadKey().KeyChar != 'q');
@@ -22,16 +27,73 @@ namespace GrueChallenge
 
         public static string Solve(int clawPos, int[] stacks, bool clawIsGrabbing)
         {
+            var max = stacks.Max();
+            var min = stacks.Min();
+            var posMin = Array.IndexOf(stacks, min);
+            var posMax = Array.IndexOf(stacks, max);
+
+            if (EstNiveau(stacks))
+            {
+                return default(string);
+            }
+            else if (UtiliserModeOrdonner(stacks))
+            {
+                if (EstEnOrdreDecroissant(stacks) && !clawIsGrabbing)
+                {
+                    return default(string);
+                }
+                else
+                {
+                    var lastPosMin = Array.LastIndexOf(stacks, min);
+                    var lastPosMax = Array.LastIndexOf(stacks, max);
+
+                    if (clawIsGrabbing)
+                    {
+                        if (clawPos == posMin) return "PLACE";
+                        return (clawPos > posMin ? "LEFT" : "RIGHT");
+                    }
+                    else
+                    {
+                        if (clawPos == lastPosMax) return "PICK";
+                        return (clawPos > lastPosMax ? "LEFT" : "RIGHT");
+                    }
+                }
+            }
+
+            // Pas à niveau; Mettre à niveau.
             if (clawIsGrabbing)
             {
-
+                if (clawPos == posMin) return "PLACE";
+                return (clawPos > posMin ? "LEFT" : "RIGHT");
             }
             else
             {
-                
+                if (clawPos == posMax) return "PICK";
+                return (clawPos > posMax ? "LEFT" : "RIGHT");
+            }
+        }
+
+        private static bool EstNiveau(int[] stacks) => stacks.Max() == stacks.Min();
+
+        private static bool UtiliserModeOrdonner(int[] stacks) => stacks.Max() == stacks.Min() + 1;
+
+        private static bool EstEnOrdreDecroissant(int[] stacks)
+        {
+            int precedent = stacks.Max();
+
+            for (int i = 0; i < stacks.Length; i++)
+            {
+                if (stacks[i] <= precedent)
+                {
+                    precedent = stacks[i];
+                }
+                else
+                {
+                    return false;
+                }
             }
 
-            return default(string);
+            return true;
         }
 
         public enum Action
