@@ -24,10 +24,7 @@ namespace GrueChallenge
 
         public static string Solve(int clawPos, int[] stacks, bool clawIsGrabbing)
         {
-            var max = stacks.Max();
-            var min = stacks.Min();
-            var posMin = Array.IndexOf(stacks, min);
-            var posMax = Array.IndexOf(stacks, max);
+            bool modeMettreEnOrdreDecroissant = false;
 
             if (EstNiveau(stacks) && !clawIsGrabbing)
             {
@@ -41,30 +38,23 @@ namespace GrueChallenge
                 }
                 else
                 {
-                    var lastPosMin = Array.LastIndexOf(stacks, min);
-                    var lastPosMax = Array.LastIndexOf(stacks, max);
-
-                    if (clawIsGrabbing)
-                    {
-                        if (clawPos == posMin) return "PLACE";
-                        return (clawPos > posMin ? "LEFT" : "RIGHT");
-                    }
-                    else
-                    {
-                        if (clawPos == lastPosMax) return "PICK";
-                        return (clawPos > lastPosMax ? "LEFT" : "RIGHT");
-                    }
+                    modeMettreEnOrdreDecroissant = true;
                 }
             }
 
             // Pas à niveau; Mettre à niveau.
             if (clawIsGrabbing)
             {
+                int posMin = Array.IndexOf(stacks, stacks.Max());
+
                 if (clawPos == posMin) return "PLACE";
                 return (clawPos > posMin ? "LEFT" : "RIGHT");
             }
             else
             {
+                int max = stacks.Max();
+                int posMax = (modeMettreEnOrdreDecroissant ? Array.LastIndexOf(stacks, max) : Array.IndexOf(stacks, max));
+
                 if (clawPos == posMax) return "PICK";
                 return (clawPos > posMax ? "LEFT" : "RIGHT");
             }
