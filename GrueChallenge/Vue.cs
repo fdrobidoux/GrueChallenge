@@ -34,7 +34,8 @@ namespace GrueChallenge
                 espacementsInitiaux += ESPACEMENT;
             }
 
-            Console.WriteLine(espacementsInitiaux);
+            Console.SetCursorPosition(0, 0);
+            Console.Write(espacementsInitiaux);
 
         }
 
@@ -47,6 +48,7 @@ namespace GrueChallenge
                 strview += String.Format(STACK, nbr);
             }
 
+            Console.SetCursorPosition(0, 1);
             Console.WriteLine(strview);
         }
     }
