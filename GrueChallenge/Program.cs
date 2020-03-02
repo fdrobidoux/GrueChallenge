@@ -9,7 +9,7 @@ namespace GrueChallenge
         static void Main(string[] args)
         {
             Grue grue = new Grue();
-            Usine usine = new Usine(grue, new[] { 4, 1, 5, 0, 2, 6 });
+            Usine usine = new Usine(grue, new[] { 4, 2, 5, 0, 2, 6 });
 
             do {
                 Console.Clear();
@@ -29,7 +29,7 @@ namespace GrueChallenge
             var posMin = Array.IndexOf(stacks, min);
             var posMax = Array.IndexOf(stacks, max);
 
-            if (EstNiveau(stacks))
+            if (EstNiveau(stacks) && !clawIsGrabbing)
             {
                 return default(string);
             }
