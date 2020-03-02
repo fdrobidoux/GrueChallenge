@@ -45,7 +45,7 @@ namespace GrueChallenge
             // Pas à niveau; Mettre à niveau.
             if (clawIsGrabbing)
             {
-                int posMin = Array.IndexOf(stacks, stacks.Max());
+                int posMin = Array.IndexOf(stacks, stacks.Min());
 
                 if (clawPos == posMin) return "PLACE";
                 return (clawPos > posMin ? "LEFT" : "RIGHT");
