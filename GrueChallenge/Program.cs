@@ -9,7 +9,7 @@ namespace GrueChallenge
         static void Main(string[] args)
         {
             Grue grue = new Grue();
-            Usine usine = new Usine(grue, new[] { 1, 0, 0, 1, 0, 6, 1, 1 });
+            Usine usine = new Usine(grue, new[] { 1, 3, 4, 1, 0, 6, 6, 2 });
 
             Vue.Draw(grue, usine);
 

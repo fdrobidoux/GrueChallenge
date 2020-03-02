@@ -14,11 +14,11 @@ namespace GrueChallenge
 
         public static void Draw(Grue grue, Usine usine)
         {
-            DrawGrue(grue);
+            DrawGrue(grue, usine);
             DrawBoxes(usine);
         }
 
-        private static void DrawGrue(Grue grue)
+        private static void DrawGrue(Grue grue, Usine usine)
         {
             string espacementsInitiaux = "";
 
@@ -29,14 +29,13 @@ namespace GrueChallenge
             
             espacementsInitiaux += (grue.IsGrabbing ? GRUE_GRAB : GRUE_VIDE);
 
-            for (int i = grue.Position; i < 5; i++)
+            for (int i = grue.Position; i < usine.Stacks.Length; i++)
             {
                 espacementsInitiaux += ESPACEMENT;
             }
 
             Console.SetCursorPosition(0, 0);
             Console.Write(espacementsInitiaux);
-
         }
 
         private static void DrawBoxes(Usine usine)
@@ -49,7 +48,7 @@ namespace GrueChallenge
             }
 
             Console.SetCursorPosition(0, 1);
-            Console.WriteLine(strview);
+            Console.Write(strview);
         }
     }
 }
