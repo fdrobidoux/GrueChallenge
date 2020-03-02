@@ -9,11 +9,12 @@ namespace GrueChallenge
         static void Main(string[] args)
         {
             Grue grue = new Grue();
-            Usine usine = new Usine(grue, new[] { 1, 3, 4, 1, 0, 6, 6, 2 });
+            Usine usine = new Usine(grue, new[] { 2, 1, 0, 3, 1, 8, 1 });
 
             Vue.Draw(grue, usine);
 
-            do {
+            do
+            {
                 if (usine.ExecuterAction(Solve(grue.Position, usine.Stacks, grue.IsGrabbing)))
                 {
                     break;
