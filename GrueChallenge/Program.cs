@@ -10,10 +10,11 @@ namespace GrueChallenge
             Grue grue = new Grue();
             Usine usine = new Usine(grue, new[] { 2, 1, 2, 2 });
 
-            do
-            {
+            do {
                 Console.Clear();
-                Solve(grue.Position, usine.Stacks, grue.IsGrabbing);
+                usine.ExecuterAction(
+                    Solve(grue.Position, usine.Stacks, grue.IsGrabbing)
+                );
                 Vue.Draw(grue, usine);
             }
             while (Console.ReadKey().KeyChar != 'q');
@@ -21,9 +22,24 @@ namespace GrueChallenge
 
         public static string Solve(int clawPos, int[] stacks, bool clawIsGrabbing)
         {
+            if (clawIsGrabbing)
+            {
 
+            }
+            else
+            {
+                
+            }
 
             return default(string);
+        }
+
+        public enum Action
+        {
+            PICK,
+            PLACE,
+            LEFT,
+            RIGHT
         }
     }
 }

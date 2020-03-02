@@ -15,7 +15,34 @@ namespace GrueChallenge.Models
             Stacks = stacks;
         }
 
-        public void FaireDeposer()
+        public void ExecuterAction(string action)
+        {
+            switch (action)
+            {
+                case "PLACE":
+                    FaireDeposer();
+                    break;
+                case "PICK":
+                    EnleverDuDessus();
+                    break;
+                case "LEFT":
+                    VersLaGauche();
+                    break;
+                case "RIGHT":
+                    VersLaDroite();
+                    break;
+                case default(string):
+                    Console.WriteLine("GG WP");
+                    Console.ReadKey();
+                    System.Threading.Thread.CurrentThread.Abort();
+                    break;
+                default:
+                    Console.WriteLine("ERROR: ACTION NOT FOUND: {0}", action);
+                    break;
+            }
+        }
+
+        private void FaireDeposer()
         {
             if (Grue.IsGrabbing)
             {
@@ -24,7 +51,7 @@ namespace GrueChallenge.Models
             }
         }
 
-        public void EnleverDuDessus()
+        private void EnleverDuDessus()
         {
             if (!Grue.IsGrabbing && Stacks[Grue.Position] > 0)
             {
@@ -33,7 +60,7 @@ namespace GrueChallenge.Models
             }
         }
 
-        public void VersLaGauche()
+        private void VersLaGauche()
         {
             if (Grue.Position > 0)
             {
@@ -41,7 +68,7 @@ namespace GrueChallenge.Models
             }
         }
 
-        public void VersLaDroite()
+        private void VersLaDroite()
         {
             if (Grue.Position < Stacks.Length - 1)
             {
