@@ -92,13 +92,5 @@ namespace GrueChallenge
 
             return true;
         }
-
-        public enum Action
-        {
-            PICK,
-            PLACE,
-            LEFT,
-            RIGHT
-        }
     }
 }
